@@ -15,5 +15,17 @@ return [
             'path' => __DIR__ . '/../logs/app.log',
             'level' => \Monolog\Logger::DEBUG,
         ],
+
+        // Eloquent settings
+        'db' => [
+           'driver' => 'mysql',
+           'host' => 'localhost',
+           'database' => 'scotchbox',
+           'username' => 'root',
+           'password' => 'root',
+           'charset'   => 'utf8',
+           'collation' => 'utf8_unicode_ci',
+           'prefix'    => '',
+       ]
     ],
 ];
