@@ -2,9 +2,9 @@
 
 This Slim CRUD Template is a fork of the [slim/slim-skeleton](https://github.com/slimphp/Slim-Skeleton) application.
 
-The `routes.php` contains a basic RESTful architectural pattern example to kickstart your API development using Slim as the microframework.
+Check out the `routes.php` for a basic RESTful architecture pattern example to kickstart your API development.
 
-This application utilizes the Eloquent ORM for basic CRUD operations and PSR-4 autoloading standard for the `classes` folder.
+This application utilizes the Eloquent ORM for basic CRUD operations and PSR-4 autoloading standard for the autoloading classes inside the `classes` folder.
 
 >Use this skeleton application to quickly setup and start working on a new Slim Framework 3 application. This application uses the latest Slim 3 with the PHP-View template renderer. It also uses the Monolog logger.
 
@@ -31,6 +31,6 @@ Assuming composer is globally installed, run `composer install` in your project 
 
 ---
 
-Just tweet me if something you need help `@jjjjcccjjf`. ☺
+Just tweet me if you need help `@jjjjcccjjf`. ☺
 
 <!-- ## TODO: Tests -->
