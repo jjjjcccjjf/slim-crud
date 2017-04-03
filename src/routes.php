@@ -50,7 +50,17 @@ $app->post('/tarot/new', function ($request, $response, $args) {
   return $response;
 });
 
-//
+$app->post('/testUpload', function ($request, $response, $args){
+  $files = $request->getUploadedFiles();
+  $obj = new \App\Crud($this->db);
+  $result = $obj->testUpload($files);
+
+  return $response->getBody()->write(var_dump($request->getParsedBody()));
+
+
+});
+
+
 // $app->get('/[{name}]', function ($request, $response, $args) {
 //     // Sample log message
 //     $this->logger->info("Slim-Skeleton '/' route");
