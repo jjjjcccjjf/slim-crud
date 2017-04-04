@@ -26,7 +26,7 @@ class Crud
   protected $table = 'tarots';
 
   /**
-  * uplaod directory used in uploading
+  * a static directory for the class if needed
   * @var string
   */
   protected $upload_dir = '../public/uploads';
@@ -60,9 +60,16 @@ class Crud
   * @param array $arr associative array of columns and values
   * @return bool
   */
-  public function add($arr)
+  public function add($data)
   {
-    return $this->db->table($this->table)->insert($arr);
+
+    $insert_data = [];
+
+    foreach($data as $key => $val){
+      $insert_data[$key] = filter_var($val, FILTER_SANITIZE_STRING);
+    }
+
+    return $this->db->table($this->table)->insert($insert_data);
   }
   /**
   * updates row based on $id
@@ -70,9 +77,9 @@ class Crud
   * @param  array $arr associative array of columns and values
   * @return int number of rows updated
   */
-  public function update($id, $arr)
+  public function update($id, $data)
   {
-    return $this->db->table($this->table)->where('id', $id)->update($arr);
+    return $this->db->table($this->table)->where('id', $id)->update($data);
   }
   /**
   * deletes row on db based on $id
@@ -95,6 +102,38 @@ class Crud
     $storage = new \Upload\Storage\FileSystem($this->upload_dir);
 
     $files_uploaded = [];
+
+    foreach($files as $key => $value){
+      $file = new \Upload\File($key, $storage);
+
+      $new_filename = uniqid();
+      $file->setName($new_filename);
+
+      try{
+        $file->upload();
+
+        $files_uploaded[] = $file->getNameWithExtension();
+      }
+      catch(\Exception $e){
+
+      }
+    }
+
+    return $files_uploaded;
+
+  }
+
+  public function testUploadwithBody($files, $body)
+  {
+    /**
+     * associative array with array keys as database column and
+     * array value as value to be inserted in the row
+     * @var array
+     */
+    $files_uploaded = [];
+
+    $storage = new \Upload\Storage\FileSystem($this->upload_dir);
+
 
     foreach($files as $key => $value){
       $file = new \Upload\File($key, $storage);

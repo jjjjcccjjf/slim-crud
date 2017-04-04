@@ -49,6 +49,7 @@ I haven't had a workaround for this, but I will try to make one in the future.
   * basic
   * digest
 * localhost bug workaround (XAMPP)
+* status codes
 
 Feel free to contribute!
 

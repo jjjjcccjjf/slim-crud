@@ -40,12 +40,10 @@ $app->delete('/tarot/{id}', function ($request, $response, $args) {
 
 $app->post('/tarot/new', function ($request, $response, $args) {
   $data = $request->getParsedBody();
+
   $obj = new \App\Crud($this->db);
-  $insert_data = [];
-  foreach($data as $key => $val){
-    $insert_data[$key] = filter_var($val, FILTER_SANITIZE_STRING);
-  }
-  $result = $obj->add($insert_data);
+  $result = $obj->add($data);
+
   $response->getBody()->write(var_dump($result));
   return $response;
 });
