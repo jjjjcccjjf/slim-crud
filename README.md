@@ -2,6 +2,8 @@
 
 This Slim CRUD Template is a fork of the [slim/slim-skeleton](https://github.com/slimphp/Slim-Skeleton) application.
 
+⚠ Disclaimer: This application only supports PHP < 5.5 ⚠
+
 Check out the `routes.php` for a basic RESTful architecture pattern example to kickstart your API development.
 
 This application utilizes the Eloquent ORM for basic CRUD operations and PSR-4 autoloading standard for the autoloading classes inside the `classes` folder.
