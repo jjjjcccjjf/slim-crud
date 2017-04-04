@@ -25,9 +25,9 @@ $app->get('/tarot/{id}', function ($request, $response, $args) {
 
 $app->patch('/tarot/{id}', function ($request, $response, $args) {
   $data = $request->getParsedBody();
-  $id = filter_var($args['id'], FILTER_SANITIZE_STRING);
+
   $obj = new \App\Crud($this->db);
-  $result = $obj->update($id, $data);
+  $result = $obj->update($args['id'], $data);
   return $response->getBody()->write(var_dump($result));
 });
 
@@ -44,16 +44,25 @@ $app->post('/tarot/new', function ($request, $response, $args) {
   $obj = new \App\Crud($this->db);
   $result = $obj->add($data);
 
-  $response->getBody()->write(var_dump($result));
+  $response->getBody()->write(var_dump($data));
   return $response;
 });
 
 $app->post('/testUpload', function ($request, $response, $args){
   $files = $request->getUploadedFiles();
-  $obj = new \App\Crud($this->db);
-  $result = $obj->testUpload($files);
+  $data = $request->getParsedBody();
 
-  return $response->getBody()->write(var_dump($request->getParsedBody()));
+  $obj = new \App\Crud($this->db);
+
+  /**
+   * merge array of uploaded files + request body array
+   * @var array
+   */
+  $data = array_merge($obj->upload($files), $data);
+
+  $result = $obj->add($data);
+
+  return $response->getBody()->write(var_dump($result));
 
 
 });
