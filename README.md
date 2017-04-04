@@ -16,7 +16,7 @@ This application utilizes the Eloquent ORM for basic CRUD operations and PSR-4 a
 
  A Vagrantfile is also included using Scotchbox as a preconfigured Vagrant Box. Click the links for more information about [Vagrant](https://git-scm.com/downloads) and [Scotchbox](https://github.com/scotch-io/scotch-box). I have also made a [copy-paste cheat-sheet](https://gist.github.com/jjjjcccjjf/5fd9f696c36f23d72d3ae7b4eb9965d6) for setting easily setting up Scotchbox.
 
-Clone this repository.
+Clone or download this repository.
 
     $ git clone https://github.com/jjjjcccjjf/slim-crud.git
 
@@ -29,8 +29,26 @@ Assuming composer is globally installed, run `composer install` in your project 
 
     $ composer install
 
+If you don't have Vagrant installed, and are using one of the \*AMPP variants, your base URL will probably be
+
+    http://localhost/slim-crud-master/public
+
+I haven't had a workaround for this, but I will try to make one in the future.
+
 ---
 
-Just tweet me if you need help `@jjjjcccjjf`. ☺
+## Dev roadmap 🛰
 
-<!-- ## TODO: Tests -->
+* tests
+* upload
+* firebase template
+* authentication
+  * oAuth
+  * basic
+  * digest
+* localhost bug workaround (XAMPP)
+
+Feel free to contribute!
+
+---
+Just tweet me if you need help `@jjjjcccjjf`. ☺
