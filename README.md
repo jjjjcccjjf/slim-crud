@@ -1,6 +1,6 @@
 # Slim CRUD Template
 
-This Slim CRUD Template is a fork of the [slim/slim-skeleton](https://github.com/slimphp/Slim-Skeleton) application.
+This Slim CRUD Template is a fork of the [slim/slim-skeleton](https://github.com/slimphp/Slim-Skeleton) application ~~on~~ ~~steroids~~.
 
 ⚠ Disclaimer: This application only supports PHP < 5.5 ⚠
 
@@ -31,7 +31,7 @@ Assuming composer is globally installed, run `composer install` in your project 
 
     $ composer install
 
-If you don't have Vagrant installed, and are using one of the \*AMPP variants, your base URL will probably be
+If you don't have Vagrant installed and are using one of the \*AMPP variants, your base URL will probably be
 
     http://localhost/slim-crud-master/public
 
@@ -41,8 +41,8 @@ I haven't had a workaround for this, but I will try to make one in the future.
 
 ## Dev roadmap 🛰
 
-* tests
-* upload
+* unit tests
+* ~~upload~~
 * firebase template
 * authentication
   * oAuth
@@ -50,6 +50,9 @@ I haven't had a workaround for this, but I will try to make one in the future.
   * digest
 * localhost bug workaround (XAMPP)
 * status codes
+* ~~sanitize all inputs~~
+* add validation for uploads  
+* migrations
 
 Feel free to contribute!
 

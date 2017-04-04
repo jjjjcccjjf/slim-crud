@@ -7,8 +7,6 @@ namespace App;
 * @author: @jjjjcccjjf
 * @source: https://github.com/jjjjcccjjf/slim-crud
 * @todo:
-* return appropriate HTTP status codes and shit
-* fix upload files
 */
 
 class Crud
@@ -53,6 +51,8 @@ class Crud
   */
   public function get($id)
   {
+    $id = $this->sanitize($id);
+
     return $this->db->table($this->table)->where('id', $id)->get();
   }
   /**
@@ -62,15 +62,38 @@ class Crud
   */
   public function add($data)
   {
+    $data = $this->sanitize($data);
 
-    $insert_data = [];
+    return $this->db->table($this->table)->insert($data);
+  }
 
-    foreach($data as $key => $val){
-      $insert_data[$key] = filter_var($val, FILTER_SANITIZE_STRING);
+  public function sanitize($data)
+  {
+
+    if($data instanceof Traversable){
+      return $this->sanitize_var($data);
+    }else{
+      return $this->sanitize_array($data);
     }
 
-    return $this->db->table($this->table)->insert($insert_data);
   }
+
+  public function sanitize_array($array)
+  {
+    $sanitized_array = [];
+
+    foreach($array as $key => $val){
+      $sanitized_array[$key] = filter_var($val, FILTER_SANITIZE_STRING);
+    }
+
+    return $sanitized_array;
+  }
+
+  public function sanitize_var($var)
+  {
+    return filter_var($var, FILTER_SANITIZE_STRING);
+  }
+
   /**
   * updates row based on $id
   * @param  int $id  [description]
@@ -79,6 +102,9 @@ class Crud
   */
   public function update($id, $data)
   {
+    $id = $this->sanitize($id);
+    $data = $this->sanitize($data);
+
     return $this->db->table($this->table)->where('id', $id)->update($data);
   }
   /**
@@ -88,20 +114,22 @@ class Crud
   */
   public function delete($id)
   {
+    $id = $this->sanitize($id);
+
     return $this->db->table($this->table)->where('id', $id)->delete();
   }
 
   /**
-   * [testUpload description]
-   * @todo: think a better way to use this shit
-   * @param  array   $files    array of \Psr\Http\Message\UploadedFileInterface objects
-   * @return array    array of file names successfully uploaded
-   */
-  public function testUpload($files)
+  * uploads files on the default $upload_dir value
+  * merge return value with requestBody for best results
+  * @param  array   $files    array of \Psr\Http\Message\UploadedFileInterface objects | $request->getUploadedFiles()
+  * @return array    array of $key=>$value names of successfully uploaded files
+  */
+  public function upload($files)
   {
     $storage = new \Upload\Storage\FileSystem($this->upload_dir);
 
-    $files_uploaded = [];
+    $uploaded_files = [];
 
     foreach($files as $key => $value){
       $file = new \Upload\File($key, $storage);
@@ -112,47 +140,16 @@ class Crud
       try{
         $file->upload();
 
-        $files_uploaded[] = $file->getNameWithExtension();
+        $uploaded_files[$key] = $file->getNameWithExtension();
       }
       catch(\Exception $e){
-
+        # TODO: Do some shit
       }
     }
 
-    return $files_uploaded;
+    return $uploaded_files;
 
   }
 
-  public function testUploadwithBody($files, $body)
-  {
-    /**
-     * associative array with array keys as database column and
-     * array value as value to be inserted in the row
-     * @var array
-     */
-    $files_uploaded = [];
-
-    $storage = new \Upload\Storage\FileSystem($this->upload_dir);
-
-
-    foreach($files as $key => $value){
-      $file = new \Upload\File($key, $storage);
-
-      $new_filename = uniqid();
-      $file->setName($new_filename);
-
-      try{
-        $file->upload();
-
-        $files_uploaded[] = $file->getNameWithExtension();
-      }
-      catch(\Exception $e){
-
-      }
-    }
-
-    return $files_uploaded;
-
-  }
 
 }
