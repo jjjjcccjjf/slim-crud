@@ -43,7 +43,7 @@ I haven't had a workaround for this, but I will try to make one in the future.
 
 * unit tests
 * ~~upload~~
-* firebase template
+* firebase template 👈 up next!
 * authentication
   * oAuth
   * basic
@@ -51,8 +51,9 @@ I haven't had a workaround for this, but I will try to make one in the future.
 * localhost bug workaround (XAMPP)
 * status codes
 * ~~sanitize all inputs~~
-* add validation for uploads  
+* add validation for uploads 👈 up next!
 * migrations
+* tag builds 👈 up next!
 
 Feel free to contribute!
 
