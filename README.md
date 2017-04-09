@@ -2,7 +2,7 @@
 
 This Slim CRUD Template is a fork of the [slim/slim-skeleton](https://github.com/slimphp/Slim-Skeleton) application ~~on~~ ~~steroids~~.
 
-⚠ Disclaimer: This application only supports PHP < 5.5 ⚠
+⚠ Disclaimer: This application only supports PHP<=5.5 ⚠
 
 Check out the `routes.php` for a basic RESTful architecture pattern example to kickstart your API development.
 
@@ -41,7 +41,7 @@ I haven't had a workaround for this, but I will try to make one in the future.
 
 ## Dev roadmap 🛰
 
-* unit tests
+* unit tests 👈 up next!
 * ~~upload~~
 * firebase template 👈 up next!
 * authentication
@@ -49,7 +49,7 @@ I haven't had a workaround for this, but I will try to make one in the future.
   * basic
   * digest
 * localhost bug workaround (XAMPP)
-* status codes
+* ~~status codes~~
 * ~~sanitize all inputs~~
 * add validation for uploads 👈 up next!
 * migrations
