@@ -106,7 +106,11 @@ class Crud
     $id = $this->sanitize($id);
     $data = $this->sanitize($data);
 
-    return $this->db->table($this->table)->where('id', $id)->update($data);
+    if($this->exists($id)){
+      return $this->db->table($this->table)->where('id', $id)->update($data);
+    }else{
+      return -1; # To handle nonexistent records
+    }
   }
   /**
   * deletes row on db based on $id
