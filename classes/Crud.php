@@ -121,8 +121,17 @@ class Crud
   }
 
   /**
-  * uploads files on the default $upload_dir value
-  * merge return value with requestBody for best results
+   * check if id exists in the table
+   * @param  int $id [description]
+   * @return bool     [description]
+   */
+  public function exists($id)
+  {
+    return $this->db->table($this->table)->where('id', $id)->count();
+  }
+
+  /**
+  * uploads files on the default d
   * @param  array   $files    array of \Psr\Http\Message\UploadedFileInterface objects | $request->getUploadedFiles()
   * @return array    array of $key=>$value names of successfully uploaded files
   */
