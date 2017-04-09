@@ -53,7 +53,7 @@ class Crud
   {
     $id = $this->sanitize($id);
 
-    return $this->db->table($this->table)->where('id', $id)->get();
+      return $this->db->table($this->table)->where('id', $id)->get();
   }
   /**
   * inserts new record to the db
@@ -64,16 +64,17 @@ class Crud
   {
     $data = $this->sanitize($data);
 
-    return $this->db->table($this->table)->insert($data);
+    return $this->db->table($this->table)->insertGetId($data);
+
   }
 
   public function sanitize($data)
   {
 
-    if($data instanceof Traversable){
-      return $this->sanitize_var($data);
-    }else{
+    if(is_array($data) or ($data instanceof Traversable)){
       return $this->sanitize_array($data);
+    }else{
+      return $this->sanitize_var($data);
     }
 
   }
