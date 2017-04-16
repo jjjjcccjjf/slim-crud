@@ -53,7 +53,7 @@ class Crud
   {
     $id = $this->sanitize($id);
 
-      return $this->db->table($this->table)->where('id', $id)->get();
+    return $this->db->table($this->table)->where('id', $id)->get();
   }
   /**
   * inserts new record to the db
@@ -125,17 +125,17 @@ class Crud
   }
 
   /**
-   * check if id exists in the table
-   * @param  int $id [description]
-   * @return bool     [description]
-   */
+  * check if id exists in the table
+  * @param  int $id [description]
+  * @return bool     [description]
+  */
   public function exists($id)
   {
     return $this->db->table($this->table)->where('id', $id)->count();
   }
 
   /**
-  * uploads files on the default d
+  * uploads files on the default directory
   * @param  array   $files    array of \Psr\Http\Message\UploadedFileInterface objects | $request->getUploadedFiles()
   * @return array    array of $key=>$value names of successfully uploaded files
   */
@@ -151,13 +151,38 @@ class Crud
       $new_filename = uniqid();
       $file->setName($new_filename);
 
+      // Validate file upload
+      // MimeType List => http://www.iana.org/assignments/media-types/media-types.xhtml
+      $file->addValidations(array(
+
+        //You can also add multi mimetype validation
+        # We support commonly used MIME type extensions
+        new \Upload\Validation\Mimetype(array(
+          'image/png',
+          'image/jpeg',
+          'image/gif',
+          'application/pdf',
+          'text/csv',
+          'text/plain', # .txt
+          'application/msword', # .doc
+          'application/vnd.ms-excel', # .xls
+          'application/vnd.ms-powerpoint', # .ppt
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', # .xlsx
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document', # .docx
+          'application/vnd.openxmlformats-officedocument.presentationml.presentation', # .pptx
+        )),
+        // Ensure file is no larger than 5M (use "B", "K", M", or "G")
+        // new \Upload\Validation\Size('20M')
+      ));
+
+
       try{
         $file->upload();
 
         $uploaded_files[$key] = $file->getNameWithExtension();
       }
       catch(\Exception $e){
-        # TODO: Do some shit
+        return $e->getMessage();
       }
     }
 
