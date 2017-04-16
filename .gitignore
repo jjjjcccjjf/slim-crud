@@ -3,3 +3,4 @@
 !/logs/README.md
 .DS_STORE
 .vagrant
+/public/uploads/*
