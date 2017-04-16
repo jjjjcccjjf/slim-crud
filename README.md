@@ -53,7 +53,7 @@ I haven't had a workaround for this, but I will try to make one in the future.
 * ~~sanitize all inputs~~
 * add validation for uploads 👈 up next!
 * migrations
-* set header location of newly added record
+* ~~set header location of newly added record~~
 * tag builds 👈 up next!
 
 Feel free to contribute!

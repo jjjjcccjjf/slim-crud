@@ -72,34 +72,41 @@ $app->group('/tarots', function () {
     * if more than 1 row(s) got deleted
     */
     if($result > 0){
-
       return $response->withStatus(204);
-
     }else{
-
       return $response->withJson(array('message' => 'Not found'), 404);
-
     }
 
   });
 
-  $this->map(['PATCH', 'POST'], '/{id:[0-9]+}', function($request, $response, $args){
+  $this->map(['PATCH', 'POST', 'PUT'], '/{id:[0-9]+}', function($request, $response, $args){
     $data = $request->getParsedBody();
+    $files = $request->getUploadedFiles();
 
     $obj = new \App\Crud($this->db);
 
+    /**
+    * block for uploading
+    */
+    $upload_result = $obj->upload($files);
+    if(is_array($upload_result) or ($upload_result instanceof Traversable)){
+      $data = array_merge($upload_result, $data);
+    }else{
+      return $response->withJson(array('message' => $upload_result), 500);
+    }
+
+
+    /**
+    * block for updating
+    */
     $result = $obj->update($args['id'], $data);
-
     if($result >= 0){
-
       $data = $obj->get($args['id']);
       return $response->withJson($data, 200);
-
     }else{
-
       return $response->withJson(array('message' => 'Not found'), 404);
-
     }
+
   });
 
 });

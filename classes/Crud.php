@@ -6,7 +6,6 @@ namespace App;
 * CRUD Class template for Slim 3 framework using Eloquent ORM
 * @author: @jjjjcccjjf
 * @source: https://github.com/jjjjcccjjf/slim-crud
-* @todo:
 */
 
 class Crud
